@@ -19,7 +19,7 @@ class Greeting extends React.Component {
     render() {
         const {isGreeting} = this.state;
         const greetText = isGreeting ===true ? 'Hello' : 'Bye';
-        return <h1 onClick={() => {this.meeting()}}>{greetText}, {this.props.name}</h1>
+        return <h1 onClick={() => {this.meeting()}}>{greetText}, {this.props.name} {this.props.lastName}</h1>
     }
 }
 export default Greeting;
