@@ -1,38 +1,58 @@
 import React from "react";
 import Meeting from "../Greeting/Greeting";
 
-const userArray = [
-   {
-        firstName: 'Tony',
-        lastName: 'Stark'
-   },
-   {
-        firstName: 'Jek',
-        lastName: 'Vorobey'
-    },
-    {
-        firstName: 'Mark',
-        lastName: 'Twen'
-    },
-    {
-        firstName: 'Criss',
-        lastName: 'Molly'
-    },
-    {
-        firstName: 'Donaten',
-        lastName: 'Marvel'
-    },
-]
-
-
 
 class MeetingDashboard extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state= {
+            userArray: [
+                {
+                    id: 1,
+                     firstName: 'Tony',
+                     lastName: 'Stark'
+                },
+                {
+                    id: 2,
+                     firstName: 'Jek',
+                     lastName: 'Vorobey'
+                 },
+                 {
+                    id: 3,
+                     firstName: 'Mark',
+                     lastName: 'Twen'
+                 },
+                 {
+                    id: 4,
+                     firstName: 'Criss',
+                     lastName: 'Molly'
+                 },
+                 {
+                    id: 5,
+                     firstName: 'Donaten',
+                     lastName: 'Marvel'
+                 },
+             ]
+        }
+    }
+
+    sortUsers() {
+        const {userArray} = this.state;
+        const newArray = [...userArray];
+        newArray.sort((a, b) => a.firstName > b.firstName? 1 : -1);
+        this.setState({
+            userArray: newArray
+        })
+    }
+
     userToMeeting() {
-        return userArray.map((user) => <Meeting name={user.firstName} lastName={user.lastName}/>)
+        const {userArray} = this.state;
+        return userArray.map((user) => <Meeting key={user.id} name={user.firstName} lastName={user.lastName}/>)
     }
     render() {
         return(
            <>
+           <button onClick= {() => {this.sortUsers()}}>Sort!</button>
            {this.userToMeeting()}
            </> 
         )
