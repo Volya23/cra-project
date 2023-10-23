@@ -1,16 +1,14 @@
 import React from "react";
 
-class Toggler extends React.Component {
+function Toggler(props) {
 
-   clickTab () {
-        this.props.changeParent();
+   const clickTab = () => {
+        props.changeParent();
     }
-
-    render() {
         return (
-            <button onClick={() => {this.clickTab()}}> {this.props.buttonText}</button>
+            <button onClick={() => {clickTab()}}> {props.buttonText}</button>
         )
-    }
+    
 }
 
 export default Toggler
