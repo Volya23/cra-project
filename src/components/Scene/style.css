@@ -1,0 +1,13 @@
+.scene-on {
+    width: 300 px;
+    height: 300 px;
+    border: 2px solid black;
+    background: white;
+}
+
+.scene-off {
+    width: 300 px;
+    height: 300 px;
+    border: 2px solid white;
+    background: black;
+}
