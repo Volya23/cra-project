@@ -1,6 +1,8 @@
 import React from "react";
 import Toggler from './Toggler';
-import './style.css'
+import './style.css';
+import Indicator from './Indicator';
+
 
 class Scene extends React.Component {
     constructor(props) {
@@ -22,6 +24,7 @@ class Scene extends React.Component {
         return (
            <div className= {light === true ? 'scene-off' : 'scene-on'}>
                 <Toggler buttonText = {light ? 'Off' : 'On'} changeParent={() => {this.toggleScene()}}/>
+                <Indicator text={light ? 'Light is on' : 'Light is off'}/>
             </div>
         )
     }
