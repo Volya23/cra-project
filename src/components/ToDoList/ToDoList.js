@@ -1,4 +1,5 @@
 import React from "react";
+import LiTask from "./LiTask";
 
 
 class ToDoList extends React.Component {
@@ -33,12 +34,7 @@ class ToDoList extends React.Component {
 
     taskToDo() { //renderLi
         const {taskArray} = this.state;
-        return taskArray.map((task) =>
-            <li key={task.id}>
-            {task.text}
-            <button onClick={() => {this.sortTasks(task.id)}}>x</button>
-            </li>
-        )
+        return taskArray.map((task) => <LiTask key={task.id} text={task.text} id={task.id} delCallback={(id) => this.sortTasks(id)} />)
     }
 
     render() {
