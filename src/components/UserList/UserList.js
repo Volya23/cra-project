@@ -8,12 +8,13 @@ class UserList extends React.Component {
 
         this.state = {
             users: [],
-            filteredUsers: []
+            filteredUsers: [],
+            userCount: 100
         }
     }
 
     componentDidMount() {
-        getUsers().then((data) => {
+        getUsers(this.state.userCount).then((data) => {
             const {results} = data;
             this.setState({
                 users: results
@@ -31,8 +32,13 @@ class UserList extends React.Component {
     }
 
     handlerSearch = ({target: {value}}) => {
-        const {users} = this.state;
+        if (value === '') {
+            this.setState({
+                filteredUsers: []
+            })
+        }
         
+        const {users} = this.state;
         const searchValue = value;
         const filteredUsers = users.filter((user) => user.name.last.toLowerCase().trim().indexOf(searchValue.toLowerCase().trim()) !== -1)
         
@@ -40,15 +46,34 @@ class UserList extends React.Component {
             filteredUsers
         })
     }
-        
+    setUserCount = ({target: {value}}) => {
+        this.setState({
+            userCount: value
+        })
+    }
 
-    
+    loadUsers = () => {
+        getUsers(this.state.userCount).then((data) => {
+            const {results} = data;
+            this.setState({
+                users: results
+            })
+        });
+    }
+
 
     render() {
         const {users} = this.state;
         return(
             <>
                 <h1>User List</h1>
+                
+                <label>
+                    Type count users
+                    <input type="text" min={1} max={100} onChange={this.setUserCount} />
+                </label>
+                <button onClick={this.loadUsers}>Load</button>
+
 
                 <label>
                     Search by lastname
