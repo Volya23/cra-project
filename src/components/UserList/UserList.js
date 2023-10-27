@@ -7,7 +7,8 @@ class UserList extends React.Component {
         super(props);
 
         this.state = {
-            users: []
+            users: [],
+            filteredUsers: []
         }
     }
 
@@ -21,20 +22,42 @@ class UserList extends React.Component {
     }
 
     renderUsers = ()  => {
-        const {users} = this.state;
-        return users.map((user) => <UserCard user={user} key={user.login.uuid} />)
+        const {users, filteredUsers} = this.state;
+        return filteredUsers.length > 0
+        ?
+        filteredUsers.map((user) => <UserCard user={user} key={user.login.uuid} />)
+        :
+        users.map((user) => <UserCard user={user} key={user.login.uuid} />)
     }
+
+    handlerSearch = ({target: {value}}) => {
+        const {users} = this.state;
+        
+        const searchValue = value;
+        const filteredUsers = users.filter((user) => user.name.last.toLowerCase().trim().indexOf(searchValue.toLowerCase().trim()) !== -1)
+        
+        this.setState({
+            filteredUsers
+        })
+    }
+        
+
+    
 
     render() {
         const {users} = this.state;
-
         return(
             <>
                 <h1>User List</h1>
+
+                <label>
+                    Search by lastname
+                    <input type="text" onChange={this.handlerSearch}/>
+                </label>
+
                 <section className="card-container">
-                    {users.length > 0 ? this.renderUsers() : null}
+                    {users.length > 0 ? this.renderUsers() : <h2>Users is loading </h2>}
                 </section>
-                {users.length > 0 ? <UserCard user={users[0]} /> : null}
             </>
         )
     }
