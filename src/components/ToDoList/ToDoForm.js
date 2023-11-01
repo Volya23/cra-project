@@ -4,13 +4,35 @@ class ToDoForm extends Component {
     constructor(props) {
         super(props);
 
+        this.state = {
+            todo: ''
+        }
+
     }
     
-    render() {
-        return (
-            <div>
+    changeHandler = ({target: {value, name}}) => {
+        this.setState ({
+            [name]: value
+        })
+    }
+    submitHandler = (event) => {
+        const {props: {sendData}} = this;
+        event.preventDefault();
+        sendData(this.state.todo);
 
-            </div>
+        this.setState({
+            todo: ''
+        })
+    }
+
+    render() {
+        const {todo} = this.state;
+
+        return (
+            <form onSubmit={this.submitHandler}>
+                <input type="text" value={todo} name="todo" onChange={this.changeHandler}/>
+                <button type="submit">Submit</button>
+            </form>
         );
     }
 }
