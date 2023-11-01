@@ -1,7 +1,7 @@
 import React from "react";
 import LiTask from "./LiTask";
-import ToDoForm from "./ToDoForm";
-
+import ToDoForm from "./ToDoForm/ToDoForm";
+import styles from './style.module.css';
 
 
 class ToDoList extends React.Component {
@@ -61,7 +61,7 @@ class ToDoList extends React.Component {
 
                 <ToDoForm sendData={this.formHandler}/>
 
-                <ul>
+                <ul className={styles.container}>
                     {this.taskToDo()}
                 </ul>
             </>
